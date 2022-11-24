@@ -1,0 +1,583 @@
+--UNIT-1-----------------------------------------------------------------------------------------------------------------
+
+Create Table University ( Name Varchar(20), Class Number(20), Section Varchar(1))
+Alter Table University Add Marks Number(20)
+Insert Into University Values('Prash', 718, 'A', 98)
+Insert Into University Values('Prash', 718, 'A', 98)
+Select *from University
+Alter Table University Add Job Varchar(20)
+Update University set Job = 'Mgr' where Class = 718
+Delete from University where Marks = 98
+Alter table University Drop column Section
+
+Alter Table University ADD Sal Number(30)
+Update University set Sal = 2000 where Class= 718
+
+--Min
+Select Min (Sal) from University
+--Max
+Select Max(sal) from University
+--avg sal
+Select avg(sal) from University
+--Sum sal
+Select sum(sal) from University
+--Count
+Select count(sal) from University
+--Between
+Select *from University where Sal  Between 15000 and 30000
+--Not Between
+Select *from University where Sal not Between 20000 and 200
+--Found with name
+Select *from University where Name Like '%Sagar'
+--Grater or lower ke basis pe 
+Select *from University where Sal >200
+
+
+--ADD
+
+Declare 
+x Number(20); 
+y Number(20); 
+z Number(20); 
+a Number(20); 
+ 
+begin 
+x:= 200; 
+y:= 300; 
+z:= 400; 
+a:= x+y+z; 
+ 
+Dbms_output.put_line('The Sum is'||a); 
+end;
+
+
+--Subtract
+
+Declare 
+x Number(20); 
+y Number(30); 
+z Number(20); 
+ 
+begin 
+x:= 10; 
+y:= 5; 
+z:= x-y; 
+ 
+Dbms_output.put_line('The ans for deletion is'||z); 
+end; 
+
+--Swap
+
+Declare 
+x Number(20); 
+y Number(20); 
+z Number(20); 
+ 
+begin 
+x:= 2000; 
+y:= 3000; 
+ 
+Dbms_output.put_line('Before swapping  x = '||x || '  y = '  ||y); 
+ 
+z:=x; 
+x:=y; 
+y:=z; 
+ 
+Dbms_output.put_line('After Swapping  x = '||x ||  '  y = ' ||y); 
+end;
+Statement processed.
+
+
+-- Reverse 
+
+DECLARE
+x number;
+y number:=0;
+
+begin
+x:=1234;
+while x>0
+loop
+y:=(y*10) + mod(x,10);
+x:=trunc(x/10);
+end loop;
+
+dbms_output.put_line(' Reversed number is : '|| y);
+end;
+
+--parameter and area of rectangle
+
+Declare
+L Number(20,3):= 10;
+B Number(20,3):= 20;
+a Number(20,3);
+p Number(20,3);
+
+Begin
+a:= L*B;
+p:= 2*(L+B);
+
+Dbms_output.put_line('Area of the rectangle is  ' || a );
+Dbms_output.put_line('The perimeter of rectangle is : ' ||p);
+End;
+
+-- Parameter and area of square
+
+Declare
+s Number(20,3):= 20;
+a Number(20,3);
+p Number(20,3);
+
+Begin
+a:= s*s;
+p:= 4*s;
+
+Dbms_output.put_line('The area of square is : ' ||a);
+Dbms_output.put_line('The perimeter of square is : ' ||p);
+End;
+
+-- Even or Odd
+
+Declare
+x Number(20,3):= 7783;
+y Number(20,3);
+Begin
+  y:= Mod(x,2);
+IF y = 0 THEN
+Dbms_output.put_line('even');
+ELSE
+Dbms_output.put_line('odd');
+End IF;
+End;
+
+
+
+
+--UNIT-2--------------------------------------------------------------------------------------------------------------
+
+--(2.1)
+
+--Write a PL/SQL program to check whether a date falls on weekend i.e. SATURDAY or SUNDAY.
+
+DECLARE
+    date1 DATE := TO_DATE('14/02/2004', 'DD-MM-YYYY');
+    get_day VARCHAR2(15);
+    BEGIN
+    get_day := RTRIM(TO_CHAR(date1, 'DAY'));
+    IF get_day IN ('SATURDAY', 'SUNDAY')
+    THEN
+    dbms_output.new_line;
+    DBMS_OUTPUT.PUT_LINE ('The day of the given date is '||get_day||' and it falls on weekend');
+    ELSE
+    dbms_output.new_line;
+    DBMS_OUTPUT.PUT_LINE ('The day of the given date is '||get_day||' and it does not fall on the weekend');
+    END IF;
+    DBMS_OUTPUT.PUT_LINE ('Execution  Successful');
+END;
+
+
+--to display the description against a grade according to the marks achieved by students in their final exams.
+
+DECLARE
+variable_Score Number := 85;
+variable_LetterGrade Char(1);
+BEGIN
+IF variable_Score >= 90 THEN variable_LetterGrade := 'A';
+ELSIF variable_Score >= 80 THEN variable_LetterGrade := 'B';
+ELSIF variable_Score >= 70 THEN variable_LetterGrade := 'C';
+ELSIF variable_Score >= 60 THEN variable_LetterGrade := 'D';
+ELSE variable_LetterGrade := 'E';
+END IF;
+DBMS_OUTPUT.PUT_LINE('Your Letter Grade is: ' || variable_LetterGrade);
+END;
+
+-- Write a PL/SQL program to identify whether a character entered by user is letter or digit
+
+DECLARE
+    get_ctr CHAR(1) := '9';
+BEGIN
+    IF ( get_ctr >= 'A'
+         AND get_ctr <= 'Z' )
+        OR ( get_ctr >= 'a'
+             AND get_ctr <= 'z' ) THEN
+      dbms_output.Put_line ('The given character is a letter');
+    ELSE
+      dbms_output.Put_line ('The given character is not a letter');
+
+      IF get_ctr BETWEEN '0' AND '9' THEN
+        dbms_output.Put_line ('The given character is a number');
+      ELSE
+        dbms_output.Put_line ('The given character is not a number');
+      END IF;
+    END IF;
+END; 
+
+--Write a PL/SQL program to convert a temperature in scale Fahrenheit to Celsius and vice versa
+
+DECLARE
+    temp1     NUMBER := 90;
+    t_scale   CHAR := 'C';
+    new_temp  NUMBER;
+    new_scale CHAR;
+  BEGIN
+    IF t_scale != 'C'
+      AND
+      t_scale != 'F' THEN
+      dbms_output.Put_line ('The scale you input is not a valid scale');
+      new_temp := 0;
+      new_scale := 'C';
+    ELSE
+      IF t_scale = 'C' THEN
+        new_temp := ( ( 9 * temp1 ) / 5 ) + 32;
+        new_scale := 'F';
+      ELSE
+        new_temp := ( ( temp1 - 32 ) * 5 ) / 9;
+        new_scale := 'C';
+      END IF;
+    END IF;
+    dbms_output.Put_line ('The new temperature in scale '
+    ||new_scale
+    ||' is: '
+    ||new_temp);
+  END;
+
+
+--Write a program in PL/SQL to print the prime numbers between 1 to 100.
+
+DECLARE
+    i NUMBER(3);
+    j NUMBER(3);
+BEGIN
+dbms_output.Put_line('The prime numbers are:');
+	dbms_output.new_line;
+    i := 2;
+    LOOP
+        j := 2;
+        LOOP
+            EXIT WHEN( ( MOD(i, j) = 0 )
+                        OR ( j = i ) );
+            j := j + 1;
+        END LOOP;
+        IF( j = i )THEN
+          dbms_output.Put(i||'   ');							   
+        END IF;
+        i := i + 1;
+        exit WHEN i = 50;
+    END LOOP;
+	dbms_output.new_line;
+END;
+
+
+--Write a PL/SQL program to check whether a given number is positive, negative or zero
+
+
+DECLARE
+num1 NUMBER := 8;
+BEGIN
+IF num1 < 0 THEN
+DBMS_OUTPUT.PUT_LINE ('The number '||num1||' is a negative number');
+ELSIF num1 = 0 THEN
+DBMS_OUTPUT.PUT_LINE ('The number '||num1||' is equal to zero');
+ELSE
+DBMS_OUTPUT.PUT_LINE ('The number '||num1||' is a positive number');
+END IF;
+END;
+
+
+--(2.2)
+
+--Write a program in PL/SQL to print the value of a variable inside and outside a loop using LOOP EXIT statement.
+
+DECLARE
+  n NUMBER := 0;
+BEGIN
+  LOOP
+    DBMS_OUTPUT.PUT_LINE ('The value of n inside the loop is:  ' || TO_CHAR(n));
+    n := n + 1;
+    IF n > 5 THEN
+      EXIT;
+    END IF;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('The value of n outside the loop is: ' || TO_CHAR(n));
+END;
+
+
+--Write a program in PL/SQL to print 1st n numbers with a difference of 3 and starting from 1.
+
+DECLARE
+  n number:= 7;
+  i number:=1;
+  m number:=1;
+BEGIN
+ DBMS_OUTPUT.PUT_LINE ('The first '||n||' numbers are: ');
+  DBMS_OUTPUT.PUT (i||'  ');
+    for i in 1..n-1 loop
+	   m:=m+3;
+	   dbms_output.put(m||'  ');
+    END LOOP;
+    dbms_output.new_line;
+ END;
+ 
+--Write a program in PL/SQL to insert records from one table to another.
+
+DROP TABLE emp_temp;
+CREATE TABLE emp_temp (
+  emp_id      NUMBER,
+  emp_email  VARCHAR2(40)
+);
+ 
+DECLARE
+  number_of_emp  NUMBER;
+BEGIN
+  SELECT COUNT(employee_id) INTO number_of_emp
+  FROM employees;
+  
+  FOR i IN 1..number_of_emp LOOP
+    INSERT INTO emp_temp (emp_id, emp_email)
+    VALUES(i, 'not available now');
+  END LOOP;
+END;
+
+
+--Write a program in PL/SQL to check whether a number is prime or not using goto statement with for loop. 
+
+
+Declare
+n Number;
+flag number:=1;
+i number;
+Begin
+n:=40;
+For i in 2..n/2 loop
+if n mod i=0 then
+flag:=0;
+Exit;
+End if;
+End loop;
+if flag=1
+then
+Dbms_output.put_line(n||' is prime');
+else
+Dbms_output.put_line(n||' is not prime');
+End if;
+End;
+
+
+--Write a program in PL/SQL to print factorial of a number
+
+declare 
+
+fac number :=1;   
+  
+n number := 4;   
+  
+begin         
+  
+while n > 0 loop  
+  
+fac:=n*fac;        
+n:=n-1;           
+end loop;         
+dbms_output.put_line(fac);  
+  
+end;
+
+
+--Write a program in PL/SQL to show the uses of nested loop. 
+
+
+Declare
+i number;
+j number;
+Begin
+i:=2;
+loop
+j:=2;
+loop
+Exit when((mod(i,j)=0) or (j=i));
+j:=j +1;
+End loop;
+if (j=1) then
+Dbms_output.put_line(i || ' is prime');
+End if;
+i:=i+1;
+Exit when i=20;
+End loop;
+End;
+
+--(2.4)
+
+--Write a query to create a view for those salesmen belonging to the city New York.
+
+
+create table salesman(salesman_id number(10), name varchar(20), city varchar(20), commission
+number(10));
+insert into salesman values(5001, 'James Hoog', 'New York', 0.15);
+insert into salesman values(5002, 'Nail Knite', 'Paris', 0.13);
+insert into salesman values(5005, 'Pit Alex', 'London', 0.11);
+insert into salesman values(5007, 'Paul Adam', 'Rome', 0.13);
+insert into salesman values(5003, 'Lauson Hen', 'San Jose', 0.12);
+insert into salesman values(5006, 'Mac Lyon', 'Paris', 0.14);
+Create View newyorkstaff
+As Select*
+From salesman
+Where city= 'New York';
+Select*From newyorkstaff;
+
+Drop table salesman;
+
+
+--Write a query to create a view to getting a count of how many customers we have at each level of a grade.
+
+
+create table customer(cust_id number(10), cust_name varchar(20), city varchar(20),
+grade number(10), salesman_id number(10));
+insert into customer values(3002, 'Nick Rimando', 'New York', 100, 5001);
+insert into customer values(3007, 'Brad Davis', 'New York', 200, 5001);
+insert into customer values(3005, 'Graham Zusi', 'California', 200, 5002);
+insert into customer values(3008, 'Julian Green', 'London', 300, 5002);
+insert into customer values(3004, 'Fabian Johnson', 'Paris', 300, 5006);
+Create View gradecount (grade, salesman_id)
+As Select grade, Count(*)
+From customer
+Group By grade;
+Select*From gradecount
+
+
+--Write a query to create a view that shows for each order the salesman and customer by name.
+
+Create table salesman(salesman_id number (10),s_name varchar(20),city
+varchar(20),commission number (10,2));
+insert into salesman values (5001, 'James Hoog', 'New York', 0.15);
+insert into salesman values (5002, 'Nail Knite', 'New York', 0.13);
+insert into salesman values (5005, 'Pit Alex', 'Paris', 0.11);
+insert into salesman values (5006, 'Mc Lyon', 'London', 0.14);
+insert into salesman values (5007, 'Paul Adam', 'Rome', 0.13);
+Create table customer(cust_id number (10),cust_name varchar(20),city
+varchar(20),grade number (10),salesman_id number);
+insert into customer values (3002, 'Nick Rimando', 'New York', 100, 5001);
+insert into customer values (3007, 'Brad Davis', 'New York', 200, 5001);
+insert into customer values (3005, 'Graham Zusi', 'California', 200, 5002);
+insert into customer values (3008, 'Julian Green', 'London', 300, 5002);
+insert into customer values (3004, 'Fabian Johnson', 'Paris', 300, 5006);
+CREATE TABLE orders(ord_no number (10),prch_amt number (10),odr_date DATE
+NOT NULL,cust_id number (10),salesman_id number);
+insert into orders values (70001, 10030, DATE'2012-05-10', 3002, 5001);
+insert into orders values (70003, 2000, DATE'2012-09-10', 3007, 5001);
+insert into orders values (70005, 4000, DATE'2012-10-05', 3005, 5002);
+insert into orders values (70007, 7000, DATE'2012-08-17', 3008, 5002);
+insert into orders values (70009, 5000, DATE'2012-09-10', 3004, 5006);
+CREATE VIEW nameorders
+AS SELECT ord_no, prch_amt, a.salesman_id,s_name, cust_name
+FROM orders a, customer b, salesman c
+WHERE a.cust_id = b.cust_id
+AND a.salesman_id = c.salesman_id;
+Select * from nameorders;
+Drop table orders;
+
+
+--UNIT-3-------------------------------------------
+
+--Write a function to calculate simple interest
+
+CREATE OR REPLACE PROCEDURE SIMPLE_INT 
+(P IN NUMBER,R IN NUMBER,Y IN NUMBER) AS SIMP_INT NUMBER(6,2);
+BEGIN 
+SIMPLE_INT (1000,10,3);
+SIMP_INT:=P*R*Y;
+DBMS_OUTPUT.PUT_LINE(SIMP_INT);
+END;
+
+
+
+--write a program using packages.
+
+CREATE OR REPLACE PACKAGE educba_retrieve_insert IS
+PROCEDURE insert_value (cust_record IN customers_details%ROWTYPE);
+FUNCTION retrieve_value (cust_id IN NUMBER) RETURN customers_details%ROWTYPE;
+END educba_retrieve_insert:
+/
+CREATE OR REPLACE PACKAGE BODY educba_retrieve_insert IS
+PROCEDURE insert_value(cust_record IN customers_details%ROWTYPE)
+IS
+PRAGMA AUTONOMOUS_TRANSACTION; BEGIN
+INSERT INTO customers_details VALUES(cust_record.customers_details_name,cust_record.customers
+_details_no; cust_record.billAmount,cust_record.attainee);
+
+COMMIT;
+END insert_value;
+FUNCTION get_record(p_customers_details_no IN NUMBER) RETURN customers_details%ROWTYPE
+IS
+l_customers_details_rec customers_details%ROWTYPE; BEGIN
+SELECT * INTO l_customers_details_rec FROM customers_details where customers_details_no=p_customers_details_no
+RETURN l_customers_details_rec; END get_record;
+BEGUN
+dbms_output.put_line(‘We are now in the initialization part'); END educba_retrieve_insert:
+/ DECLARE
+l_customers_details_rec customers_details%ROWTYPE;
+l_get_rec customers_details%ROWTYPE; BEGIN
+dbms output.put line(‘Add a new record into customer details table with is 1004'); l_customers_details_rec.customers_details_no:=1004; l_customers_details_rec.customers_details_name:='Payal Udhani'; l_customers_details_rec.billAmount~20000; l_customers_details_rec.attainee:=’Mayur Sachwani’; educba_retrieve_insert.insert_value(1_customers_details_rec); dbms_output.put_line(‘Record inserted');
+dbms output.put line(‘Now, we will call the function which will dispaly the customer record'): l_get_rec:=educba_retrieve_insert.get_record(1004); dbms_output.put_line(‘Customer name: ‘||l_get_rec.customers_details_name); dbms_output.put_line(‘Customer number:‘||l_get_rec.customers_details_no); dbms_output.put_line(‘Customer billAmount:‘||l_get_rec.billAmount');
+dbms output.put line(‘Customer attainee:‘||1_get_rec.attainee); END:
+
+
+--write a program using triggers.
+
+CREATE [OR REPLACE ] TRIGGER trigger_name
+{BEFORE | AFTER | INSTEAD OF }
+{INSERT [OR] | UPDATE [OR] | DELETE}
+[OF col_name]
+ON table_name
+[REFERENCING OLD AS o NEW AS n] [FOR EACH ROW]
+WHEN (condition)
+DECLARE
+Declaration-statements
+BEGIN
+Executable-statements EXCEPTION
+Exception-handling-statements
+END;
+
+CREATE OR REPLACE TRIGGER display_salary_changes BEFORE DELETE OR INSERT OR UPDATE ON customers FOR EACH ROW
+WHEN (NEW.ID > 0)
+DECLARE
+sal_diff number;
+BEGIN
+sal_diff := :NEW.salary - :OLD.salary; dbms_output.put_line('Old salary: ' || :OLD.salary); dbms_output.put_line('New salary: ' || :NEW.salary); dbms_output.put_line('Salary difference: ' || sal_diff);
+END;
+/
+
+DECLARE
+total_rows number(2);
+BEGIN
+UPDATE customers
+SET salary = salary + 5000;
+IF sql%notfound THEN
+dbms_output.put_line('no customers updated');
+ELSIF sql%found THEN
+total_rows := sql%rowcount;
+dbms_output.put_line( total_rows || ' customers updated ');
+END IF;
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
